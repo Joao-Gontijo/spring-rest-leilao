@@ -1,9 +1,14 @@
 package br.edu.ifg.sistemaleilao.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Leilao {
@@ -14,10 +19,14 @@ public class Leilao {
 	private String item;
 	private String dataAbertura;
 	private double lanceMinimo;
-	private double lanceAtual;
+	
 	private String dataFechamento;
 	private String situacao;
 
+	@ManyToOne
+	private Lance lanceAtual;
+	@OneToMany
+	private List<Lance> lances = new ArrayList<>();
 	
 	public Leilao() {
 	
@@ -55,14 +64,6 @@ public class Leilao {
 		this.lanceMinimo = lanceMinimo;
 	}
 
-	public double getLanceAtual() {
-		return lanceAtual;
-	}
-
-	public void setLanceAtual(double lanceAtual) {
-		this.lanceAtual = lanceAtual;
-	}
-
 	public String getDataFechamento() {
 		return dataFechamento;
 	}
@@ -77,6 +78,61 @@ public class Leilao {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((dataAbertura == null) ? 0 : dataAbertura.hashCode());
+		result = prime * result + ((dataFechamento == null) ? 0 : dataFechamento.hashCode());
+		result = prime * result + ((item == null) ? 0 : item.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(lanceAtual.getValor());
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(lanceMinimo);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((situacao == null) ? 0 : situacao.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Leilao other = (Leilao) obj;
+		if (id != other.id)
+			return false;
+		if (dataAbertura == null) {
+			if (other.dataAbertura != null)
+				return false;
+		} else if (!dataAbertura.equals(other.dataAbertura))
+			return false;
+		if (dataFechamento == null) {
+			if (other.dataFechamento != null)
+				return false;
+		} else if (!dataFechamento.equals(other.dataFechamento))
+			return false;
+		if (item == null) {
+			if (other.item != null)
+				return false;
+		} else if (!item.equals(other.item))
+			return false;
+		if (Double.doubleToLongBits(lanceAtual.getValor()) != Double.doubleToLongBits(other.lanceAtual.getValor()))
+			return false;
+		if (Double.doubleToLongBits(lanceMinimo) != Double.doubleToLongBits(other.lanceMinimo))
+			return false;
+		if (situacao == null) {
+			if (other.situacao != null)
+				return false;
+		} else if (!situacao.equals(other.situacao))
+			return false;
+		return true;
 	}
 
 }

@@ -18,6 +18,10 @@ public class LanceService {
 		return repository.findAll();
 	}
 	
+	public List<Lance> findByLeilao(Long id){
+		return repository.findByLeilao_Id(id);
+	}
+	
 	public Lance save(Lance lance) {
 		return repository.save(lance);
 	}
