@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifg.sistemaleilao.model.Leilao;
+import br.edu.ifg.sistemaleilao.model.StatusSituacao;
 import br.edu.ifg.sistemaleilao.repositoy.LeilaoRepository;
 
 @Service
@@ -16,6 +17,10 @@ public class LeilaoService {
 
 	public Leilao save(Leilao leilao) {
 		return repository.save(leilao);
+	}
+	
+	public List<Leilao> findByStatus(StatusSituacao status){
+		return repository.findByStatus(status);
 	}
 	
 	public void delete(Leilao leilao) {
