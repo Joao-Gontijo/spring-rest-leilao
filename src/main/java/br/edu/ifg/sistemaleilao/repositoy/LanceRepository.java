@@ -11,4 +11,10 @@ import br.edu.ifg.sistemaleilao.model.Lance;
 public interface LanceRepository extends JpaRepository<Lance, Long>{
 	
 	List<Lance> findByLeilao_Id(Long leilaoId);
+	
+	Lance findTopByOrderByIdDesc();
+	
+	Lance findTopByOrderByValorDesc();
+	
+	List<Lance> findTop2ByOrderByIdDesc();
 }

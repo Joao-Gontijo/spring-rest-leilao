@@ -2,6 +2,8 @@ package br.edu.ifg.sistemaleilao.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,7 @@ public class ParticipanteController {
 	}
 	
 	@PostMapping("/participante")
-	public Participante salvarParticipante(@RequestBody Participante participante) {
+	public Participante salvarParticipante(@RequestBody @Valid Participante participante) {
 		return service.save(participante);
 	}
 	
@@ -37,7 +39,7 @@ public class ParticipanteController {
 	}
 	
 	@PutMapping("/participante")
-	public Participante updateParticipante(@RequestBody Participante participante) {
+	public Participante updateParticipante(@RequestBody @Valid Participante participante) {
 		return service.save(participante);
 	}
 }

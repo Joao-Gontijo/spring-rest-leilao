@@ -1,5 +1,6 @@
 package br.edu.ifg.sistemaleilao.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,22 @@ public class LeilaoService {
 	}
 	
 	public List<Leilao> findAll() {
-		return repository.findAll();
+		List<Leilao> listaLeilao = repository.findAll();
+	    for(Leilao leilao : listaLeilao){
+	        LocalDate date = LocalDate.parse(leilao.getDataFechamento());
+	        if(date.isBefore(LocalDate.now())) {
+	            if(leilao.getStatus().equals(StatusSituacao.INATIVO)){
+	                leilao.setStatus(StatusSituacao.EXPIRADO);
+	                save(leilao);
+	            }
+	            if(leilao.getStatus().equals(StatusSituacao.ABERTO)){
+	                leilao.setStatus(StatusSituacao.EXPIRADO);
+	                save(leilao);
+	            }
+	        }
+	    }
+	    listaLeilao = repository.findAll();
+	    return listaLeilao;
 	}
 	
 }

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Leilao {
@@ -18,12 +20,14 @@ public class Leilao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotBlank
 	private String item;
+	@NotBlank
 	private String dataAbertura;
+	@NotNull
 	private double lanceMinimo;
-	
+	@NotBlank
 	private String dataFechamento;
-	private String situacao;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusSituacao status = StatusSituacao.INATIVO;
@@ -76,14 +80,6 @@ public class Leilao {
 	public void setDataFechamento(String dataFechamento) {
 		this.dataFechamento = dataFechamento;
 	}
-
-	public String getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
-	}
 	
 	public StatusSituacao getStatus() {
 		return status;
@@ -106,7 +102,7 @@ public class Leilao {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(lanceMinimo);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((situacao == null) ? 0 : situacao.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
@@ -140,10 +136,10 @@ public class Leilao {
 			return false;
 		if (Double.doubleToLongBits(lanceMinimo) != Double.doubleToLongBits(other.lanceMinimo))
 			return false;
-		if (situacao == null) {
-			if (other.situacao != null)
+		if (status == null) {
+			if (other.status!= null)
 				return false;
-		} else if (!situacao.equals(other.situacao))
+		} else if (!status.equals(other.status))
 			return false;
 		return true;
 	}

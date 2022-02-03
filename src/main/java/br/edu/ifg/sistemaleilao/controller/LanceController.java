@@ -2,7 +2,10 @@ package br.edu.ifg.sistemaleilao.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +31,8 @@ public class LanceController {
 	}
 	
 	@PostMapping("/lance")
-	public Lance salvarLance(@RequestBody Lance lance) {
-		return service.save(lance);
+	public ResponseEntity<Lance> salvarLance(@RequestBody @Valid Lance lance) {
+		return service.check(lance);
 	}
 	
 	@DeleteMapping("/lance")
@@ -38,7 +41,7 @@ public class LanceController {
 	}
 	
 	@PutMapping("/lance")
-	public Lance updateLance(@RequestBody Lance lance) {
+	public Lance updateLance(@RequestBody @Valid Lance lance) {
 		return service.save(lance);
 	}
 }

@@ -2,6 +2,8 @@ package br.edu.ifg.sistemaleilao.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +35,7 @@ public class LeilaoController {
 	}
 	
 	@PostMapping("/leilao")
-	public Leilao salvarLeilao(@RequestBody Leilao leilao) {
+	public Leilao salvarLeilao(@RequestBody @Valid Leilao leilao) {
 		return service.save(leilao);
 	}
 	
@@ -43,7 +45,7 @@ public class LeilaoController {
 	}
 	
 	@PutMapping("/leilao")
-	public Leilao updateLeilao(@RequestBody Leilao leilao) {
+	public Leilao updateLeilao(@RequestBody @Valid Leilao leilao) {
 		return service.save(leilao);
 	}
 }
